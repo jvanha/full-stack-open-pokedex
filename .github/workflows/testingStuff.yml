@@ -2,8 +2,6 @@ name: Testing stuff
 
 on:
   push:
-    branches:
-      - master
 
 jobs:
   a_test_job:
@@ -22,3 +20,7 @@ jobs:
         env:
           COMMIT_MESSAGES: ${{ toJson(github.event.commits.*.message) }}
         run: echo "$COMMIT_MESSAGES"
+      - name: slack webhook url
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        run: echo "$SLACK_WEBHOOK_URL"
