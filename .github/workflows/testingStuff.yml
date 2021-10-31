@@ -8,6 +8,8 @@ jobs:
     runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v2
+      - name: lint
+        run: npm run eslint
       - name: gihub context
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
@@ -19,7 +21,7 @@ jobs:
       - name: commit messages
         env:
           COMMIT_MESSAGES: ${{ toJson(github.event.commits.*.message) }}
-        run: echo "$COMMIT_MESSAGESbroken"
+        run: echo "$COMMIT_MESSAGES"
       - name: heroku api key
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
