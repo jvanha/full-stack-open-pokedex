@@ -26,29 +26,30 @@ jobs:
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
         run: echo "$HEROKU_API_KEY"
-      - name: Notify success
-        if: ${{success()}}
-        uses: 8398a7/action-slack@v3
-        with:
-          status: custom
-          fields: commit,author,took
-          custom_payload: |
-            {
-              attachments: [{
-                color: 'good',
-                text: `(${process.env.AS_COMMIT}) \nBuild took ${process.env.AS_TOOK}.`
-              }]
-            }
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-      - name: Notify failure
-        if: ${{always() && failure()}}
-        uses: 8398a7/action-slack@v3
-        with:
-          status: ${{ job.status }}
-          fields: took
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+   
+      #- name: Notify success
+      #  if: ${{success()}}
+      #  uses: 8398a7/action-slack@v3
+      #  with:
+      #    status: custom
+      #    fields: commit,author,took
+      #    custom_payload: |
+      #      {
+      #        attachments: [{
+      #          color: 'good',
+      #          text: `(${process.env.AS_COMMIT}) \nBuild took ${process.env.AS_TOOK}.`
+      #        }]
+      #      }
+      #  env:
+      #    SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+      #- name: Notify failure
+      #  if: ${{always() && failure()}}
+      #  uses: 8398a7/action-slack@v3
+      #  with:
+      #    status: ${{ job.status }}
+      #    fields: took
+      #  env:
+      #    SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
 
 
       
