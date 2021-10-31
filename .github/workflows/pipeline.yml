@@ -48,7 +48,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DEFAULT_BUMP: patch
       - name: Notify success
-        if: ${{ github.event_name == 'push' && !contains(join(github.event.commits.*.message), '#skip') && job.status == 'success'}}
+        if: ${{ github.event_name == 'push' && !contains(join(github.event.commits.*.message), '#skip') && success()}}
         uses: 8398a7/action-slack@v3
         with:
           status: custom
@@ -56,14 +56,14 @@ jobs:
           custom_payload: |
             {
               attachments: [{
-                color: 'good'
+                color: 'good',
                 text: `A new version deployed to https://calm-thicket-66229.herokuapp.com/ (${process.env.AS_COMMIT}) by ${process.env.AS_AUTHOR}. \nBuild took ${process.env.AS_TOOK}.`
               }]
             }
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
       - name: Notify failure
-        if: ${{ github.event_name == 'push' && !contains(join(github.event.commits.*.message), '#skip') && job.status != 'success'}}
+        if: ${{ github.event_name == 'push' && !contains(join(github.event.commits.*.message), '#skip') && always() && failure()}}
         uses: 8398a7/action-slack@v3
         with:
           status: ${{ job.status }}
