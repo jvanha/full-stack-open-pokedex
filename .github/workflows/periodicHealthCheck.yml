@@ -1,7 +1,8 @@
 name: Periodic health check
 
 on:
-  push:
+  schedule:
+    - cron: '0 * * * *'
 
 jobs:
   health_check:
@@ -10,4 +11,4 @@ jobs:
       - name: Check health
         uses: jtalk/url-health-check-action@v2
         with:
-          url: https://calm-thicket-66229.herokuapp.com/sgsrg
+          url: https://calm-thicket-66229.herokuapp.com/
