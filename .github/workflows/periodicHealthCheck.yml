@@ -10,4 +10,4 @@ jobs:
       - name: Check health
         uses: jtalk/url-health-check-action@v2
         with:
-          url: https://calm-thicket-66229.herokuapp.com/
+          url: https://calm-thicket-66229.herokuapp.com/sgsrg
